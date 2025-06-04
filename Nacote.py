@@ -11,7 +11,7 @@ CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTYf3UdqcxtN-C8kjNYD1
 
 # --- AUTO REFRESH ---
 # Refreshes every 1 second (1000 ms)
-st.experimental_autorefresh(interval=1000, key="datarefresh")
+st.experimental_autorefresh(interval=1, key="datarefresh")
 
 # --- LOAD DATA ---
 @st.cache_data(ttl=1)  # cache expires every second
