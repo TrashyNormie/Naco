@@ -24,11 +24,11 @@ df_raw = load_data(CSV_URL)
 
 # --- CLEAN DATA ---
 def clean_column(col):
+    # Remove thousands separator commas
     return pd.to_numeric(
         df_raw[col].astype(str).str.replace(",", "", regex=False),
         errors='coerce'
     )
-
 # Parse datetime column
 df_raw['FECHA Y HORA'] = pd.to_datetime(df_raw['FECHA Y HORA'], errors='coerce', dayfirst=True)
 
