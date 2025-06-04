@@ -21,7 +21,7 @@ while True:
     # (Your cleaning code here)
     def clean_column(col):
         return pd.to_numeric(
-            df_raw[col].astype(str).str.replace(",", ".", regex=False),
+            df_raw[col].astype(str).str.replace(".", ",", regex=False),
             errors='coerce'
         )
     df_raw['FECHA Y HORA'] = pd.to_datetime(df_raw['FECHA Y HORA'], errors='coerce', dayfirst=True)
