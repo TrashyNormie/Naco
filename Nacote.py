@@ -46,6 +46,14 @@ for col in cols:
 df.dropna(subset=['FECHA Y HORA'], inplace=True)
 df.dropna(subset=cols, how='all', inplace=True)
 
+# --- DEBUG VIEW ---
+with st.expander("🔍 Mostrar datos sin procesar y procesados"):
+    st.write("Raw Google Sheets data:")
+    st.dataframe(df_raw.tail(5))
+    
+    st.write("🔧 Cleaned numeric data:")
+    st.dataframe(df[cols + ['FECHA Y HORA']].tail(5))
+
 # --- DISPLAY METRICS ---
 st.subheader("📈 Últimos Valores")
 col1, col2, col3, col4, col5 = st.columns(5)
