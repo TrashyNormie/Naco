@@ -46,5 +46,4 @@ while True:
         for col in cols:
             st.line_chart(df.set_index('FECHA Y HORA')[col], height=200, use_container_width=True)
 
-    time.sleep(1)  # wait 1 seconds before refreshing
 
