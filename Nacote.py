@@ -27,17 +27,16 @@ def clean_column(col):
     cleaned = (
         df_raw[col]
         .astype(str)
-        .str.replace(r"[^\d.,-]", "", regex=True)  # remove weird chars
-        .str.replace(",", "", regex=False)         # remove thousands commas
+        .str.replace(r"[^\d.,-]", "", regex=True)  # remove non-numeric chars
+        .str.replace(",", "", regex=False)         # remove thousands separator
         .str.strip()
     )
-    st.write(f"Cleaned values in '{col}':", cleaned.unique())  # For debugging
     return pd.to_numeric(cleaned, errors="coerce")
 
-# Parse datetime column
+# Clean datetime column
 df_raw['FECHA Y HORA'] = pd.to_datetime(df_raw['FECHA Y HORA'], errors='coerce', dayfirst=True)
 
-# Clean numeric columns
+# Clean metric columns
 cols = ['CORRIENTE', 'VOLTAJE', 'POTENCIA', 'ENERGIA', 'FRECUENCIA']
 df = df_raw.copy()
 for col in cols:
