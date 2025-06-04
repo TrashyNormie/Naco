@@ -9,7 +9,7 @@ CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTYf3UdqcxtN-C8kjNYD1
 
 placeholder = st.empty()
 
-@st.cache_data(ttl=60)
+@st.cache_data(ttl=1)
 def load_data(url):
     df = pd.read_csv(url)
     df.columns = [col.strip() for col in df.columns]
