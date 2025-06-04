@@ -11,7 +11,7 @@ CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTYf3UdqcxtN-C8kjNYD1
 
 # --- AUTO REFRESH ---
 # Refreshes every 1 second (1000 ms)
-st.experimental_autorefresh(interval=1, key="datarefresh")
+st.experimental_autorefresh(interval=1000, key="datarefresh")
 
 # --- LOAD DATA ---
 @st.cache_data(ttl=1)  # cache expires every second
@@ -29,6 +29,7 @@ def clean_column(col):
         df_raw[col].astype(str).str.replace(",", "", regex=False),
         errors='coerce'
     )
+
 # Parse datetime column
 df_raw['FECHA Y HORA'] = pd.to_datetime(df_raw['FECHA Y HORA'], errors='coerce', dayfirst=True)
 
