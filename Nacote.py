@@ -14,7 +14,7 @@ CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTYf3UdqcxtN-C8kjNYD1
 st.experimental_autorefresh(interval=1000, key="datarefresh")
 
 # --- LOAD DATA ---
-@st.cache_data(ttl=1)  # cache expires every second
+@st.cache_data(ttl=1)
 def load_data(url):
     df = pd.read_csv(url)
     df.columns = [col.strip() for col in df.columns]
@@ -24,13 +24,15 @@ df_raw = load_data(CSV_URL)
 
 # --- CLEAN DATA ---
 def clean_column(col):
-    return pd.to_numeric(
+    cleaned = (
         df_raw[col]
         .astype(str)
-        .str.replace(",", "", regex=False)   # Remove thousands separator
-        .str.strip(),                        # Remove leading/trailing whitespace
-        errors='coerce'
+        .str.replace(r"[^\d.,-]", "", regex=True)  # remove weird chars
+        .str.replace(",", "", regex=False)         # remove thousands commas
+        .str.strip()
     )
+    st.write(f"Cleaned values in '{col}':", cleaned.unique())  # For debugging
+    return pd.to_numeric(cleaned, errors="coerce")
 
 # Parse datetime column
 df_raw['FECHA Y HORA'] = pd.to_datetime(df_raw['FECHA Y HORA'], errors='coerce', dayfirst=True)
